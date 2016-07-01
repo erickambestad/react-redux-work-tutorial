@@ -16,3 +16,14 @@ Initial setup -
     - pages
     - components
   webpack and webpack-dev-server
+
+
+  Step 3:
+
+    Add redux
+      - initialState.js
+      - actionTypes.js
+      - store.js
+      - actions/
+      - reducers/
+    Turn page components in to Redux containers and map state/actions to props
