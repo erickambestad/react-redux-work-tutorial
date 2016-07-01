@@ -4,7 +4,7 @@
   "description": "NCSoft Webpack/React/Redux tutorial made for show and tell development day.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack && webpack-dev-server --history-api-fallback --inline --hot --content-base htdocs/"
   },
   "repository": {
     "type": "git",
