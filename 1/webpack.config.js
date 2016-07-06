@@ -38,10 +38,6 @@ module.exports = {
             exclude: /node_modules/,
             loaders: ['react-hot', 'babel?presets[]=es2015,presets[]=stage-2,presets[]=react'],
             include: __dirname
-          },
-          {
-            test: /materialize-css\/bin\//,
-            loader: 'imports?jQuery=jquery,$=jquery,hammerjs'
           }
         ]
     },
