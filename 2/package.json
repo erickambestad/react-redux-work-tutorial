@@ -1,0 +1,27 @@
+{
+  "name": "webpack-react-redux-tutorial",
+  "version": "0.0.1",
+  "description": "NCSoft Webpack/React/Redux tutorial made for show and tell development day.",
+  "main": "app.js",
+  "scripts": {
+    "start": "webpack && webpack-dev-server --history-api-fallback --inline --hot --content-base htdocs/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erickambestad/react-redux-work-tutorial.git"
+  },
+  "keywords": [
+    "React",
+    "Redux",
+    "Webpack",
+    "Javascript",
+    "ES2015",
+    "ES6"
+  ],
+  "author": "Eric Kambestad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erickambestad/react-redux-work-tutorial/issues"
+  },
+  "homepage": "https://github.com/erickambestad/react-redux-work-tutorial#readme"
+}

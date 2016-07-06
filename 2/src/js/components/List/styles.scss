@@ -1,0 +1,6 @@
+.list-group-item {
+  text-decoration: none;
+  &.completed {
+    text-decoration: line-through;
+  }
+}
