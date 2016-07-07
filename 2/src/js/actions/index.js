@@ -42,10 +42,16 @@ function recieveItems(items) {
   }
 }
 
-export function addItem(item) {
+export function updateItem(item) {
   return {
-    type: ADD_ITEM,
+    type: UPDATE_ITEM,
     item
+  }
+}
+
+export function addItem() {
+  return {
+    type: ADD_ITEM
   }
 }
 

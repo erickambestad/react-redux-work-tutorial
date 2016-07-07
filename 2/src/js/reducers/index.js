@@ -36,20 +36,20 @@ export default function(state = initialState, action) {
         .setIn(['loading'], false);
     break;
     case UPDATE_ITEM:
-      return state;
+      return state.setIn(['item'], action.item);
     break;
     case ADD_ITEM:
       // New item schema with defaults
       let newItem = Map({
         id: uuid.v4(),
-        label: action.item,
+        label: state.get('item'),
         completed: false,
         deleted: false
       });
       // Get the next key available
       let items = state.get('items').push(newItem);
       // set the state with new list of items
-      return state.setIn(['items'], items)
+      return state.setIn(['items'], items).setIn(['item'], '')
     break;
     case DELETE_ITEM:
       //get new items and splice out the deleted

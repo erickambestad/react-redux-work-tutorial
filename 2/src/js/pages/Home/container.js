@@ -18,11 +18,23 @@ class HomeContainer extends Component {
   }
 
   render() {
+
+    let {
+      item,
+      items,
+      deleteItem,
+      toggleItemCompletion,
+      updateItem,
+      addItem
+    } = this.props;
+
     return <Home
-      items={this.props.items}
-      deleteCallback={this.props.deleteItem}
-      toggleCallback={this.props.toggleItemCompletion}
-      addCallback={this.props.addItem}
+      item={item}
+      items={items}
+      deleteCallback={deleteItem}
+      toggleCallback={toggleItemCompletion}
+      updateCallback={updateItem}
+      addCallback={addItem}
     />
   }
 }
@@ -32,7 +44,8 @@ const mapStateToProps = (state) => {
   let sectionState = state.app;
   return {
     loading: sectionState.get('loading'),
-    items: sectionState.get('items')
+    items: sectionState.get('items'),
+    item: sectionState.get('item')
   }
 }
 
@@ -40,6 +53,7 @@ const mapStateToProps = (state) => {
 import {
   loadItems,
   addItem,
+  updateItem,
   deleteItem,
   toggleItemCompletion
 } from '../../actions';
@@ -51,6 +65,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     addItem: (item) => {
       dispatch(addItem(item))
+    },
+    updateItem: (item, text) => {
+      dispatch(updateItem(item, text))
     },
     deleteItem: (item) => {
       dispatch(deleteItem(item))

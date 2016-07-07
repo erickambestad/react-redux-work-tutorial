@@ -8,51 +8,27 @@ class Home extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      item: ''
-    }
   }
 
-  submitForm(e) {
-
-    let {
-      addCallback
-    } = this.props;
-
-    // Prevent the normal form submit
-    e.preventDefault();
-
-    let item = this.state.item;
-
-
-    // Use the container's add function to add the new item
-    addCallback(this.state.item)
-
-    // Reset the input
-    this.setState({
-      item: ''
-    })
-  }
-
-  itemChanged(e) {
+  updateText(e) {
     e.preventDefault()
 
-    // Set the text in state so we can enable/disable the button
-    this.setState({
-      item: this.refs.item.value
-    })
+    let {
+      updateCallback
+    } = this.props;
+
+    updateCallback(this.refs.item.value);
   }
 
   render() {
 
     let {
       items,
+      item,
+      addCallback,
       deleteCallback,
       toggleCallback
     } = this.props;
-
-    let disabledSubmit = this.state.item.length <= 0;
 
     return(
       <div className="col-md-6 col-md-offset-3">
@@ -62,13 +38,13 @@ class Home extends Component {
           </div>
           <List items={items} deleteCallback={deleteCallback} toggleCallback={toggleCallback}/>
         </div>
-        <form onSubmit={this.submitForm.bind(this)} className="form-horizontal">
+        <form onSubmit={addCallback} className="form-horizontal">
           <div className="form-group">
             <div className="col-sm-9">
-              <input ref="item" type="text" className="form-control" placeholder="Add a new item.." value={this.state.item} onChange={this.itemChanged.bind(this)} />
+              <input ref="item" type="text" className="form-control" placeholder="Add a new item.." value={item} onChange={this.updateText.bind(this)} />
             </div>
             <div className="col-sm-3">
-              <button className="btn btn-primary btn-block" disabled={disabledSubmit}>Add</button>
+              <button className="btn btn-primary btn-block" disabled={!item}>Add</button>
             </div>
           </div>
         </form>
