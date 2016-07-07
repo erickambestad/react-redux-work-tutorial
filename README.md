@@ -22,9 +22,6 @@ Actions describe the fact that something happened, but don’t specify how the a
 
 The reducer is a pure function that takes the previous state and an action, and returns the next state.  
 
-Steps to converting a React app to a React/Redux/Immutable app.
----------------------------------------------------------------
-
 Store
 -----
 Store holds current state of the application
@@ -36,6 +33,10 @@ When created it will specify the reducer that will manage the state updates
 store.getState() returns the current state in the store
 store.dispatch() will dispatch an action creator
 store.subscribe() registers a callback that the store will call anytime an action gets dispatched (this gets taken care of with react-redux so we won't use often)  
+
+
+Steps to converting a React app to a React/Redux/Immutable app.
+---------------------------------------------------------------
 
 1. Create new files
   - store.js - creates the store which connects the reducers to the app and applies any middleware we'd like to use
