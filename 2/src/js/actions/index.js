@@ -49,9 +49,10 @@ export function updateItem(item) {
   }
 }
 
-export function addItem() {
+export function addItem(item) {
   return {
-    type: ADD_ITEM
+    type: ADD_ITEM,
+    item
   }
 }
 

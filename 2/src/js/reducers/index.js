@@ -4,7 +4,7 @@
  * Actions describe the fact that something happened, but don’t specify how the application’s state changes in response.
  * This is the job of a reducer.
  *
- * It’s called a reducer because it’s the type of function you would pass to Array.prototype.reduce(reducer, ?initialValue).
+ * It’s called a reducer because it’s the type of function you would pass to Array.prototype.reduce(reducer, initialValue).
  * It’s very important that the reducer stays pure. Things you should never do inside a reducer:
  * - Mutate its arguments;
  * - Perform side effects like API calls and routing transitions;
@@ -41,7 +41,7 @@ export default function(state = initialState, action) {
       // New item schema with defaults
       let newItem = Map({
         id: uuid.v4(),
-        label: state.get('item'),
+        label: action.item,
         completed: false,
         deleted: false
       });

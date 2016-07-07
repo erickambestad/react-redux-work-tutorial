@@ -66,8 +66,8 @@ const mapDispatchToProps = (dispatch, props) => {
     addItem: (item) => {
       dispatch(addItem(item))
     },
-    updateItem: (item, text) => {
-      dispatch(updateItem(item, text))
+    updateItem: (item) => {
+      dispatch(updateItem(item))
     },
     deleteItem: (item) => {
       dispatch(deleteItem(item))
