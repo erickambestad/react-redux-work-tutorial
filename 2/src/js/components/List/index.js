@@ -14,7 +14,10 @@ const List = ({
   toggleCallback
 }) => {
 
+  // Filter the items before rendering.  This will allow us to check and make sure the filtered results aren't 0 since we aren't removing on delete. just flagged.
   let filteredItems = (items && items.size > 0) ? items.filter(item => !item.get('deleted')) : [];
+
+  // render the filtered items in the list or the empty message
   let renderItems = (filteredItems && filteredItems.size > 0)
     ? (
       filteredItems.map((item, key) => {
