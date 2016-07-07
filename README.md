@@ -1,10 +1,10 @@
 Steps to converting a React app to a React/Redux/Immutable app.
 
 **Things to know**
--Store - http://redux.js.org/docs/basics/Store.html
--Reducers - http://redux.js.org/docs/basics/Reducers.html
--Actions - http://redux.js.org/docs/basics/Actions.html
--Async actions - http://redux.js.org/docs/advanced/AsyncActions.html
+- Store - http://redux.js.org/docs/basics/Store.html
+- Reducers - http://redux.js.org/docs/basics/Reducers.html
+- Actions - http://redux.js.org/docs/basics/Actions.html
+- Async actions - http://redux.js.org/docs/advanced/AsyncActions.html
 
 3 Principles:
 1. The state of your whole application is stored in an object tree within a single store.
