@@ -53,7 +53,14 @@ export default function(state = initialState, action) {
       return state.setIn(['items'], filteredItems);
     break;
     case TOGGLE_ITEM_COMPLETION:
-      return state;
+      let toggleableItems = state.get('items').map(item => {
+        if (item.get('id') === action.item) {
+          return item.setIn(['completed'], !item.get('completed'));
+        } else {
+          return item;
+        }
+      })
+      return state.setIn(['items'], toggleableItems);
     break;
     default:
       return state;

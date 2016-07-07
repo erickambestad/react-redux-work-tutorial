@@ -31,13 +31,6 @@ function recieveItems(items) {
   }
 }
 
-export function updateItem(item) {
-  return {
-    type: UPDATE_ITEM,
-    item
-  }
-}
-
 export function addItem(item) {
   return {
     type: ADD_ITEM,
@@ -52,8 +45,9 @@ export function deleteItem(item) {
   }
 }
 
-export function toggleItemCompletion() {
+export function toggleItemCompletion(item) {
   return {
-    type: TOGGLE_ITEM_COMPLETION
+    type: TOGGLE_ITEM_COMPLETION,
+    item
   }
 }

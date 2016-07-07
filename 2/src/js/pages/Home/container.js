@@ -55,8 +55,8 @@ const mapDispatchToProps = (dispatch, props) => {
     deleteItem: (item) => {
       dispatch(deleteItem(item))
     },
-    toggleItemCompletion: () => {
-      dispatch(toggleItemCompletion())
+    toggleItemCompletion: (item) => {
+      dispatch(toggleItemCompletion(item))
     }
   }
 }
