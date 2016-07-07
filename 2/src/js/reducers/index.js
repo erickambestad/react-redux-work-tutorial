@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Actions describe the fact that something happened, but don’t specify how the application’s state changes in response.
  * This is the job of a reducer.
@@ -8,10 +10,6 @@
  * - Perform side effects like API calls and routing transitions;
  * - Call non-pure functions, e.g. Date.now() or Math.random().
  */
-
-
-"use strict";
-
 import { fromJS, Map } from 'immutable';
 import uuid from 'node-uuid';
 

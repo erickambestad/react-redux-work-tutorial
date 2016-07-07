@@ -1,3 +1,5 @@
+"use strict";
+
 import { Map, List } from 'immutable';
 
 // Not a huge app.. obviously

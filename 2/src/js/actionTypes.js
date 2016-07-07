@@ -1,3 +1,5 @@
+"use strict";
+
 export const REQUEST_ITEMS = 'REQUEST_ITEMS'
 export const RECIEVE_ITEMS = 'RECIEVE_ITEMS'
 export const UPDATE_ITEM = 'UPDATE_ITEM'
