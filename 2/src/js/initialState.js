@@ -1,9 +1,9 @@
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 
 // Not a huge app.. obviously
 export default Map({
   loading: false,
-  items: Map(),
+  items: List(),
   item: '',
   submitEnabled: false
 });

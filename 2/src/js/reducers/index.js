@@ -1,6 +1,7 @@
 "use strict";
 
 import { fromJS, Map } from 'immutable';
+import uuid from 'node-uuid';
 
 import initialState from '../initialState';
 
@@ -30,19 +31,26 @@ export default function(state = initialState, action) {
     case ADD_ITEM:
       // New item schema with defaults
       let newItem = Map({
+        id: uuid.v4(),
         label: action.item,
         completed: false,
         deleted: false
       });
       // Get the next key available
-      let itemCnt = state.get('items').size,
-        nextId = itemCnt + 1,
-        items = state.get('items').set(nextId, newItem);
-      // set the state with new object of items
+      let items = state.get('items').push(newItem);
+      // set the state with new list of items
       return state.setIn(['items'], items)
     break;
     case DELETE_ITEM:
-      // Set the deleted flag to true in the object
+      //get new items and splice out the deleted
+      let filteredItems = state.get('items').map(item => {
+        if (item.get('id') === action.item) {
+          return item.setIn(['deleted'], true);
+        } else {
+          return item;
+        }
+      })
+      return state.setIn(['items'], filteredItems);
     break;
     case TOGGLE_ITEM_COMPLETION:
       return state;

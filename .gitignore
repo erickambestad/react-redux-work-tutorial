@@ -1,5 +1,4 @@
 */node_modules/
-!*/htdocs
 */htdocs/*
 !*/htdocs/index.html
 npm-debug.log
