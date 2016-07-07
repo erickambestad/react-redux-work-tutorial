@@ -31,7 +31,9 @@ Lets you dispatch actions
 When created it will specify the reducer that will manage the state updates
 
 store.getState() returns the current state in the store
+
 store.dispatch() will dispatch an action creator
+
 store.subscribe() registers a callback that the store will call anytime an action gets dispatched (this gets taken care of with react-redux so we won't use often)  
 
 
