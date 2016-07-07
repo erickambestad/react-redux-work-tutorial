@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import reqwest from 'reqwest';
+import uuid from 'node-uuid';
 
 // Import dumb components
 import Home from './';
@@ -30,54 +31,50 @@ class HomeContainer extends Component {
 
   addCallback(item) {
     // Check for item, if they input something, add it
-    if (!item) {
-      alert('You must enter an item!');
-    } else {
-      let newItems = this.state.items,
-        itemsCnt = Object.keys(newItems).length,
-        newItemId = itemsCnt + 1;
+    let newItems = this.state.items;
 
-      // Add to the object
-      newItems[newItemId] = {
-        label: item,
-        completed: false,
-        deleted: false
-      }
+    // Add to the object
+    newItems.push({
+      id: uuid.v4(),
+      label: item,
+      completed: false,
+      deleted: false
+    })
 
-      // Reset the state to show new items
-      this.setState({
-        items: newItems
-      })
-    }
+    // Reset the state to show new items
+    this.setState({
+      items: newItems
+    })
   }
 
   deleteItem(itemId) {
-    let confirmation = confirm('Are you sure you want to delete this item?')
-    if (confirmation) {
+    // Delete the item
+    let newItems = this.state.items.map((item) => {
+      if (item.id === itemId) {
+        item.deleted = true;
+      }
+      return item;
+    });
 
-      // Delete the item
-      let newItems = this.state.items;
-      delete newItems[itemId];
-
-      // Reset the state to show new items
-      this.setState({
-        items: newItems
-      })
-    }
+    // Reset the state to show new items
+    this.setState({
+      items: newItems
+    })
   }
 
   toggleItemComplete(itemId) {
     // Toggle the item, clicked or otherwise
-    if (this.state.items && (this.state.items).hasOwnProperty(itemId)) {
-      let newItems = this.state.items,
-        itemCompleted = newItems[itemId].completed;
-      newItems[itemId].completed = !itemCompleted;
+    let newItems = this.state.items.map((item) => {
+      if (item.id === itemId) {
+        item.completed = !item.completed;
+      }
+      return item;
+    });
 
-      // Reset the state to show new items
-      this.setState({
-        items: newItems
-      })
-    }
+    // Reset the state to show new items
+    this.setState({
+      items: newItems
+    })
   }
 
   render() {
