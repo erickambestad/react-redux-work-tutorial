@@ -1,5 +1,3 @@
-Steps to converting a React app to a React/Redux/Immutable app.
-
 **Things to know**
 ==================
 Store - http://redux.js.org/docs/basics/Store.html
@@ -23,6 +21,9 @@ Reducers
 Actions describe the fact that something happened, but don’t specify how the application’s state changes in response. This is the job of a reducer.
 
 The reducer is a pure function that takes the previous state and an action, and returns the next state.  
+
+Steps to converting a React app to a React/Redux/Immutable app.
+---------------------------------------------------------------
 
 1. Create new files
   - store.js - creates the store which connects the reducers to the app and applies any middleware we'd like to use
