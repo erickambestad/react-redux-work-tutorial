@@ -38,7 +38,7 @@ class Home extends Component {
           </div>
           <List items={items} deleteCallback={deleteCallback} toggleCallback={toggleCallback}/>
         </div>
-        <form className="form-horizontal">
+        <form className="form-horizontal" onSubmit={e => e.preventDefault()}>
           <div className="form-group">
             <div className="col-sm-9">
               <input ref="item" type="text" className="form-control" placeholder="Add a new item.." value={item} onChange={this.updateText.bind(this)} />
