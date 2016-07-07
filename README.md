@@ -1,5 +1,11 @@
 Steps to converting a React app to a React/Redux/Immutable app.
 
+**Things to know**
+Store - http://redux.js.org/docs/basics/Store.html
+Reducers - http://redux.js.org/docs/basics/Reducers.html
+Actions - http://redux.js.org/docs/basics/Actions.html
+Async actions - http://redux.js.org/docs/advanced/AsyncActions.html
+
 1. Create new files
   - store.js - creates the store which connects the reducers to the app and applies any middleware we'd like to use
   - initialState.js - An immutable object that shows the structure of the entire app's state
