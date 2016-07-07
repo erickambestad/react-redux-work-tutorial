@@ -27,8 +27,7 @@ import {
 export default function(state = initialState, action) {
   switch(action.type) {
     case REQUEST_ITEMS:
-      return state
-        .setIn(['loading'], true);
+      return state.setIn(['loading'], true);
     break;
     case RECIEVE_ITEMS:
       return state
@@ -49,7 +48,9 @@ export default function(state = initialState, action) {
       // Get the next key available
       let items = state.get('items').push(newItem);
       // set the state with new list of items
-      return state.setIn(['items'], items).setIn(['item'], '')
+      return state
+        .setIn(['items'], items)
+        .setIn(['item'], '')
     break;
     case DELETE_ITEM:
       //get new items and splice out the deleted
