@@ -6,6 +6,13 @@ Reducers - http://redux.js.org/docs/basics/Reducers.html
 Actions - http://redux.js.org/docs/basics/Actions.html
 Async actions - http://redux.js.org/docs/advanced/AsyncActions.html
 
+3 Principles:
+1. The state of your whole application is stored in an object tree within a single store.
+2. State is read-only.  The only way to mutate the state is to emit an action, an object describing what happened.
+3. Changes are made with pure functions.  To specify how the state tree is transformed by actions, you write pure reducers.
+
+--Actions describe the fact that something happened, but don’t specify how the application’s state changes in response. This is the job of a reducer.--
+
 1. Create new files
   - store.js - creates the store which connects the reducers to the app and applies any middleware we'd like to use
   - initialState.js - An immutable object that shows the structure of the entire app's state
