@@ -1,4 +1,9 @@
 */node_modules/
-*/htdocs/*
-!*/htdocs/index.html
+*/htdocs/js/
+*/htdocs/*.woff
+*/htdocs/*.woff2
+*/htdocs/*.svg
+*/htdocs/*.jpg
+*/htdocs/*.eot
+*/htdocs/*.ttf
 npm-debug.log
