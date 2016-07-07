@@ -25,6 +25,18 @@ The reducer is a pure function that takes the previous state and an action, and 
 Steps to converting a React app to a React/Redux/Immutable app.
 ---------------------------------------------------------------
 
+Store
+-----
+Store holds current state of the application
+
+Lets you dispatch actions
+
+When created it will specify the reducer that will manage the state updates
+
+store.getState() returns the current state in the store
+store.dispatch() will dispatch an action creator
+store.subscribe() registers a callback that the store will call anytime an action gets dispatched (this gets taken care of with react-redux so we won't use often)  
+
 1. Create new files
   - store.js - creates the store which connects the reducers to the app and applies any middleware we'd like to use
   - initialState.js - An immutable object that shows the structure of the entire app's state
