@@ -1,0 +1,59 @@
+import reqwest from 'reqwest';
+
+import {
+  REQUEST_ITEMS,
+  RECIEVE_ITEMS,
+  UPDATE_ITEM,
+  ADD_ITEM,
+  DELETE_ITEM,
+  TOGGLE_ITEM_COMPLETION
+} from '../actionTypes';
+
+export function loadItems() {
+  return dispatch => {
+    dispatch(requestItems());
+    reqwest('/api/list.json', (items) => {
+      dispatch(recieveItems(items))
+    });
+  }
+}
+
+function requestItems() {
+  return {
+    type: REQUEST_ITEMS
+  }
+}
+
+function recieveItems(items) {
+  return {
+    type: RECIEVE_ITEMS,
+    items
+  }
+}
+
+export function updateItem(item) {
+  return {
+    type: UPDATE_ITEM,
+    item
+  }
+}
+
+export function addItem(item) {
+  return {
+    type: ADD_ITEM,
+    item
+  }
+}
+
+export function deleteItem(item) {
+  return {
+    type: DELETE_ITEM,
+    item
+  }
+}
+
+export function toggleItemCompletion() {
+  return {
+    type: TOGGLE_ITEM_COMPLETION
+  }
+}
