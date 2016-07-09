@@ -21,11 +21,49 @@ import {
   UPDATE_ITEM,
   ADD_ITEM,
   DELETE_ITEM,
-  TOGGLE_ITEM_COMPLETION
+  TOGGLE_ITEM_COMPLETION,
+  ATTEMPTING_LOGIN,
+  LOGIN_USER,
+  LOGIN_ERROR,
+  LOGOUT,
+  LOGOUT_ERROR
 } from '../actionTypes';
 
 export default function(state = initialState, action) {
+  let auth, newAuth;
   switch(action.type) {
+    case ATTEMPTING_LOGIN:
+      auth = state.get('auth')
+      newAuth = auth
+        .setIn(['currently'], 'AWAITING_AUTH_RESPONSE')
+        .setIn(['username'], 'guest')
+        .setIn(['uid'], null);
+      return state.setIn(['auth'], newAuth);
+    break;
+    case LOGIN_USER:
+      auth = state.get('auth'),
+      newAuth = auth
+        .setIn(['currently'], 'LOGGED_IN')
+        .setIn(['username'], action.username)
+        .setIn(['uid'], action.uid);
+      return state.setIn(['auth'], newAuth);
+    break;
+    case LOGIN_ERROR:
+      // Implement erros on login here
+      return state;
+    break;
+    case LOGOUT:
+      auth = state.get('auth'),
+      newAuth = auth
+        .setIn(['currently'], 'ANONYMOUS')
+        .setIn(['username'], 'guest')
+        .setIn(['uid'], null);
+      return state.setIn(['auth'], newAuth);
+    break;
+    case LOGOUT_ERROR:
+      // Implement erros on logout here
+      return state;
+    break;
     case REQUEST_ITEMS:
       return state.setIn(['loading'], true);
     break;

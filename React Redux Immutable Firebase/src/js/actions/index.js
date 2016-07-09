@@ -10,6 +10,7 @@
 
 
 import reqwest from 'reqwest';
+import firebase from 'firebase'
 
 import {
   REQUEST_ITEMS,
@@ -17,7 +18,12 @@ import {
   UPDATE_ITEM,
   ADD_ITEM,
   DELETE_ITEM,
-  TOGGLE_ITEM_COMPLETION
+  TOGGLE_ITEM_COMPLETION,
+  ATTEMPTING_LOGIN,
+  LOGIN_USER,
+  LOGIN_ERROR,
+  LOGOUT,
+  LOGOUT_ERROR
 } from '../actionTypes';
 
 export function loadItems() {
@@ -67,5 +73,64 @@ export function toggleItemCompletion(item) {
   return {
     type: TOGGLE_ITEM_COMPLETION,
     item
+  }
+}
+
+
+// auth
+export function startListeningToAuth() {
+  (dispatch, getState) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user, 'the user in startListeningToAuth')
+        // User signed in
+        dispatch({
+          type: LOGIN_USER,
+          uid: user.uid,
+          username: 'test'
+        })
+      } else {
+        // User not logged in
+        if (getState().get('auth').get('currently') !== 'ANONYMOUS') {
+          dispatch({
+            type: LOGOUT
+          });
+        }
+      }
+    });
+  }
+}
+
+export function login(email, password) {
+  dispatch => {
+    dispatch({type: ATTEMPT_LOGIN});
+    firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+      if (error) {
+        dispatch({
+          type: LOGIN_ERROR,
+          error
+        });
+        dispatch({
+          type: LOGOUT
+        });
+      } else {
+        // Auth listener will take care of this part, do nothing.
+      }
+    });
+  }
+}
+
+export function logout() {
+  dispatch => {
+    firebase.auth().signOut().then(() => {
+      dispatch({
+        type: LOGOUT
+      })
+    }, (error) => {
+      dispatch({
+        type: LOGOUT_ERROR,
+        error
+      })
+    });
   }
 }

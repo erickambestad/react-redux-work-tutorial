@@ -7,3 +7,5 @@
 */htdocs/*.eot
 */htdocs/*.ttf
 npm-debug.log
+
+*/fb-config.js

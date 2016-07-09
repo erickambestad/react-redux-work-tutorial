@@ -1,0 +1,13 @@
+/**
+ * Change this file to fb-config.js and fill in the necessary numbers
+ */
+
+import firebase from 'firebase';
+
+var config = {
+  apiKey: "YOUR API KEY HERE",
+  authDomain: "YOUR AUTH DOMAIN HERE",
+  databaseURL: "YOUR DATABASE URL HERE",
+  storageBucket: "YOUR STORAGE BUCKET HERE",
+};
+firebase.initializeApp(config);

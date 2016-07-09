@@ -4,6 +4,11 @@ import { Map, List } from 'immutable';
 
 // Not a huge app.. obviously
 export default Map({
+  auth: Map({
+    currently: 'ANONYMOUS',
+    username: null,
+    uid: null
+  }),
   loading: false,
   items: List(),
   item: '',
