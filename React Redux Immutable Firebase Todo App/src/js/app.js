@@ -15,6 +15,9 @@ require('../../fb-config.js');
 import Template from './pages/Template';
 import Home from './pages/Home/container'
 
+// Start the auth listener
+store.dispatch(startListeningToAuth());
+
 render((
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -24,8 +27,3 @@ render((
     </Router>
   </Provider>
 ), document.getElementById('app'));
-
-// Start listening to the auth changes
-setTimeout(function(){
-  store.dispatch(startListeningToAuth());
-},0);

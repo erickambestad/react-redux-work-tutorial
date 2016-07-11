@@ -10,15 +10,11 @@
 
 
 import reqwest from 'reqwest';
-import firebase from 'firebase'
+import firebase from 'firebase';
 
 import {
   REQUEST_ITEMS,
   RECIEVE_ITEMS,
-  UPDATE_ITEM,
-  ADD_ITEM,
-  DELETE_ITEM,
-  TOGGLE_ITEM_COMPLETION,
   ATTEMPTING_LOGIN,
   LOGIN_USER,
   LOGIN_ERROR,
@@ -48,31 +44,28 @@ function recieveItems(items) {
   }
 }
 
-export function updateItem(item) {
-  return {
-    type: UPDATE_ITEM,
-    item
-  }
-}
-
-export function addItem(item) {
-  return {
-    type: ADD_ITEM,
-    item
-  }
-}
-
-export function deleteItem(item) {
-  return {
-    type: DELETE_ITEM,
-    item
-  }
-}
-
-export function toggleItemCompletion(item) {
-  return {
-    type: TOGGLE_ITEM_COMPLETION,
-    item
+export function startListeningToItems() {
+  return dispatch => {
+    // Start the item request
+    dispatch({
+      type: REQUEST_ITEMS
+    })
+    // Check for user since we'll need their db key
+    let user = firebase.auth().currentUser;
+    // If the user exists, move on.. otherwise log them out.  They shouldn't be there anyways.
+    if (user && user.uid) {
+      // Set the event to dispatch the items every single change
+      firebase.database().ref('items/' + user.uid).on('value', (snapshot) => {
+        dispatch({
+          type: RECIEVE_ITEMS,
+          items: snapshot.val()
+        })
+      })
+    } else {
+      dispatch({
+        type: LOGOUT
+      });
+    }
   }
 }
 

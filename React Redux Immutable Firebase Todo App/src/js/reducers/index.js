@@ -18,10 +18,6 @@ import initialState from '../initialState';
 import {
   REQUEST_ITEMS,
   RECIEVE_ITEMS,
-  UPDATE_ITEM,
-  ADD_ITEM,
-  DELETE_ITEM,
-  TOGGLE_ITEM_COMPLETION,
   ATTEMPTING_LOGIN,
   LOGIN_USER,
   LOGIN_ERROR,
@@ -79,45 +75,6 @@ export default function(state = initialState, action) {
       return state
         .setIn(['items'], fromJS(action.items))
         .setIn(['loading'], false);
-    break;
-    case UPDATE_ITEM:
-      return state.setIn(['item'], action.item);
-    break;
-    case ADD_ITEM:
-      // New item schema with defaults
-      let newItem = Map({
-        id: uuid.v4(),
-        label: action.item,
-        completed: false,
-        deleted: false
-      });
-      // Get the next key available
-      let items = state.get('items').push(newItem);
-      // set the state with new list of items
-      return state
-        .setIn(['items'], items)
-        .setIn(['item'], '')
-    break;
-    case DELETE_ITEM:
-      //get new items and splice out the deleted
-      let filteredItems = state.get('items').map(item => {
-        if (item.get('id') === action.item) {
-          return item.setIn(['deleted'], true);
-        } else {
-          return item;
-        }
-      })
-      return state.setIn(['items'], filteredItems);
-    break;
-    case TOGGLE_ITEM_COMPLETION:
-      let toggleableItems = state.get('items').map(item => {
-        if (item.get('id') === action.item) {
-          return item.setIn(['completed'], !item.get('completed'));
-        } else {
-          return item;
-        }
-      })
-      return state.setIn(['items'], toggleableItems);
     break;
     default:
       return state;

@@ -1,6 +1,7 @@
 "use strict";
 
 import React, { Component } from "react";
+import uuid from 'node-uuid';
 
 import List from '../../components/List';
 
@@ -10,14 +11,59 @@ class Home extends Component {
     super(props);
   }
 
-  updateText(e) {
-    e.preventDefault()
-
+  componentDidMount() {
     let {
-      updateCallback
+      itemListener
     } = this.props;
 
-    updateCallback(this.refs.item.value);
+    itemListener();
+  }
+
+  addItem(e) {
+    e.preventDefault();
+
+    // Check for user since we'll need their db key
+    let user = firebase.auth().currentUser;
+
+    // If the user exists, move on.
+    if (user && user.uid) {
+      let newItem = {
+        id: uuid.v4(),
+        label: this.refs.item.value,
+        completed: false,
+        deleted: false
+      }
+      // Push the new item in to the DB.. will automatically update
+      let saved = firebase.database()
+        .ref()
+        .child('items')
+        .child(user.uid)
+        .push(newItem)
+
+      // If successful, clear out the form input
+      if (saved) {
+        this.refs.item.value = '';
+      }
+    }
+  }
+
+  deleteItem(key) {
+    // Check for user since we'll need their db key
+    let user = firebase.auth().currentUser;
+
+    // If the user and key exists, move on.
+    if (user && user.uid && key) {
+      firebase.database()
+        .ref()
+        .child('items')
+        .child(user.uid)
+        .child(key)
+        .remove().then(() => {
+          console.log('success')
+        }).catch((error) => {
+          console.log('Failed.. ' + error.message)
+        })
+    }
   }
 
   render() {
@@ -43,18 +89,15 @@ class Home extends Component {
                 }}>Logut</a>
             </h3>
           </div>
-          <List items={items} deleteCallback={deleteCallback} toggleCallback={toggleCallback}/>
+          <List items={items} deleteCallback={this.deleteItem} toggleCallback={()=>{}}/>
         </div>
-        <form onSubmit={e => {
-            e.preventDefault();
-            addCallback.call(null, item);
-          }} className="form-horizontal">
+        <form onSubmit={this.addItem.bind(this)} className="form-horizontal">
           <div className="form-group">
             <div className="col-sm-9">
-              <input ref="item" type="text" className="form-control" placeholder="Add a new item.." value={item} onChange={this.updateText.bind(this)} />
+              <input ref="item" type="text" className="form-control" placeholder="Add a new item.." />
             </div>
             <div className="col-sm-3">
-              <button type="submit" className="btn btn-primary btn-block" disabled={!item}>Add</button>
+              <button type="submit" className="btn btn-primary btn-block">Add</button>
             </div>
           </div>
         </form>

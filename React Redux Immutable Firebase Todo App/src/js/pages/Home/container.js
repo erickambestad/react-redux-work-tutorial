@@ -15,19 +15,11 @@ class HomeContainer extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.loadItems()
-  }
-
   render() {
 
     let {
-      item,
       items,
-      deleteItem,
-      toggleItemCompletion,
-      updateItem,
-      addItem,
+      startListeningToItems,
       auth,
       login,
       logout
@@ -35,20 +27,19 @@ class HomeContainer extends Component {
 
     if (auth && auth.has('currently')) {
       switch (auth.get('currently')) {
+        // Not logged in, show the login form
         case 'ANONYMOUS':
           return <Login loginCallback={login} error={(auth && auth.has('error')) ? auth.get('error') : null} />
         break;
+        // Trying to log in, show the loader
         case 'AWAITING_AUTH_RESPONSE':
           return <Loader />
         break;
+        // Logged in, show the page
         default:
           return <Home
-            item={item}
             items={items}
-            deleteCallback={deleteItem}
-            toggleCallback={toggleItemCompletion}
-            updateCallback={updateItem}
-            addCallback={addItem}
+            itemListener={startListeningToItems}
             logoutCallback={logout}
           />
       }
@@ -57,18 +48,6 @@ class HomeContainer extends Component {
     }
 
     return component;
-
-    return (auth && auth.has('currently') && auth.get('currently') !== 'ANONYMOUS')
-      ? <Home
-        item={item}
-        items={items}
-        deleteCallback={deleteItem}
-        toggleCallback={toggleItemCompletion}
-        updateCallback={updateItem}
-        addCallback={addItem}
-        logoutCallback={logout}
-      />
-    : <Login loginCallback={login} error={(auth && auth.has('error')) ? auth.get('error') : null} />
   }
 }
 
@@ -78,38 +57,21 @@ const mapStateToProps = (state) => {
   return {
     loading: sectionState.get('loading'),
     items: sectionState.get('items'),
-    item: sectionState.get('item'),
     auth: sectionState.get('auth')
   }
 }
 
 // Actions
 import {
-  loadItems,
-  addItem,
-  updateItem,
-  deleteItem,
-  toggleItemCompletion,
+  startListeningToItems,
   login,
   logout
 } from '../../actions';
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    loadItems: () => {
-      dispatch(loadItems())
-    },
-    addItem: (item) => {
-      dispatch(addItem(item))
-    },
-    updateItem: (item) => {
-      dispatch(updateItem(item))
-    },
-    deleteItem: (item) => {
-      dispatch(deleteItem(item))
-    },
-    toggleItemCompletion: (item) => {
-      dispatch(toggleItemCompletion(item))
+    startListeningToItems: () => {
+      dispatch(startListeningToItems())
     },
     login: (email, password) => {
       dispatch(login(email, password))
