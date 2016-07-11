@@ -37,7 +37,8 @@ export default function(state = initialState, action) {
       newAuth = auth
         .setIn(['currently'], 'AWAITING_AUTH_RESPONSE')
         .setIn(['username'], 'guest')
-        .setIn(['uid'], null);
+        .setIn(['uid'], null)
+        .setIn(['error'], null)
       return state.setIn(['auth'], newAuth);
     break;
     case LOGIN_USER:
@@ -45,12 +46,19 @@ export default function(state = initialState, action) {
       newAuth = auth
         .setIn(['currently'], 'LOGGED_IN')
         .setIn(['username'], action.username)
-        .setIn(['uid'], action.uid);
+        .setIn(['uid'], action.uid)
+          .setIn(['error'], null)
       return state.setIn(['auth'], newAuth);
     break;
     case LOGIN_ERROR:
-      // Implement erros on login here
-      return state;
+      let error = (action.error) ? action.error : null
+      auth = state.get('auth'),
+      newAuth = auth
+        .setIn(['currently'], 'ANONYMOUS')
+        .setIn(['username'], 'guest')
+        .setIn(['uid'], null)
+        .setIn(['error'], error)
+      return state.setIn(['auth'], newAuth);
     break;
     case LOGOUT:
       auth = state.get('auth'),

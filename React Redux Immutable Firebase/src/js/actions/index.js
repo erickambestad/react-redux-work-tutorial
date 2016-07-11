@@ -79,19 +79,18 @@ export function toggleItemCompletion(item) {
 
 // auth
 export function startListeningToAuth() {
-  (dispatch, getState) => {
+  return (dispatch, getState) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user, 'the user in startListeningToAuth')
         // User signed in
         dispatch({
           type: LOGIN_USER,
           uid: user.uid,
-          username: 'test'
+          username: user.email
         })
       } else {
         // User not logged in
-        if (getState().get('auth').get('currently') !== 'ANONYMOUS') {
+        if (getState()['app'].get('auth').get('currently') !== 'ANONYMOUS') {
           dispatch({
             type: LOGOUT
           });
@@ -102,16 +101,13 @@ export function startListeningToAuth() {
 }
 
 export function login(email, password) {
-  dispatch => {
-    dispatch({type: ATTEMPT_LOGIN});
+  return dispatch => {
+    dispatch({type: ATTEMPTING_LOGIN});
     firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
       if (error) {
         dispatch({
           type: LOGIN_ERROR,
-          error
-        });
-        dispatch({
-          type: LOGOUT
+          error: error.message
         });
       } else {
         // Auth listener will take care of this part, do nothing.
@@ -121,7 +117,7 @@ export function login(email, password) {
 }
 
 export function logout() {
-  dispatch => {
+  return dispatch => {
     firebase.auth().signOut().then(() => {
       dispatch({
         type: LOGOUT

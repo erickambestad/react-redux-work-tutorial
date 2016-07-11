@@ -27,14 +27,21 @@ class Home extends Component {
       item,
       addCallback,
       deleteCallback,
-      toggleCallback
+      toggleCallback,
+      logoutCallback
     } = this.props;
 
     return(
       <div className="col-md-6 col-md-offset-3">
         <div className="panel panel-info">
           <div className="panel-heading">
-            <h3 className="panel-title">Sample to-do list yah</h3>
+            <h3 className="panel-title">
+              <span>Sample to-do list yah</span>
+              <a href="#" className="pull-right" onClick={(e) => {
+                  e.preventDefault();
+                  logoutCallback();
+                }}>Logut</a>
+            </h3>
           </div>
           <List items={items} deleteCallback={deleteCallback} toggleCallback={toggleCallback}/>
         </div>

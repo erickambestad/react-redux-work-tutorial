@@ -6,6 +6,8 @@ import reqwest from 'reqwest';
 
 // Import dumb components
 import Home from './';
+import Login from '../../components/Auth/Login';
+import Loader from '../../components/Loader';
 
 class HomeContainer extends Component {
 
@@ -25,17 +27,48 @@ class HomeContainer extends Component {
       deleteItem,
       toggleItemCompletion,
       updateItem,
-      addItem
+      addItem,
+      auth,
+      login,
+      logout
     } = this.props;
 
-    return <Home
-      item={item}
-      items={items}
-      deleteCallback={deleteItem}
-      toggleCallback={toggleItemCompletion}
-      updateCallback={updateItem}
-      addCallback={addItem}
-    />
+    if (auth && auth.has('currently')) {
+      switch (auth.get('currently')) {
+        case 'ANONYMOUS':
+          return <Login loginCallback={login} error={(auth && auth.has('error')) ? auth.get('error') : null} />
+        break;
+        case 'AWAITING_AUTH_RESPONSE':
+          return <Loader />
+        break;
+        default:
+          return <Home
+            item={item}
+            items={items}
+            deleteCallback={deleteItem}
+            toggleCallback={toggleItemCompletion}
+            updateCallback={updateItem}
+            addCallback={addItem}
+            logoutCallback={logout}
+          />
+      }
+    } else {
+      return <Loader />
+    }
+
+    return component;
+
+    return (auth && auth.has('currently') && auth.get('currently') !== 'ANONYMOUS')
+      ? <Home
+        item={item}
+        items={items}
+        deleteCallback={deleteItem}
+        toggleCallback={toggleItemCompletion}
+        updateCallback={updateItem}
+        addCallback={addItem}
+        logoutCallback={logout}
+      />
+    : <Login loginCallback={login} error={(auth && auth.has('error')) ? auth.get('error') : null} />
   }
 }
 
@@ -45,7 +78,8 @@ const mapStateToProps = (state) => {
   return {
     loading: sectionState.get('loading'),
     items: sectionState.get('items'),
-    item: sectionState.get('item')
+    item: sectionState.get('item'),
+    auth: sectionState.get('auth')
   }
 }
 
@@ -55,7 +89,9 @@ import {
   addItem,
   updateItem,
   deleteItem,
-  toggleItemCompletion
+  toggleItemCompletion,
+  login,
+  logout
 } from '../../actions';
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -74,6 +110,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     toggleItemCompletion: (item) => {
       dispatch(toggleItemCompletion(item))
+    },
+    login: (email, password) => {
+      dispatch(login(email, password))
+    },
+    logout: () => {
+      dispatch(logout())
     }
   }
 }

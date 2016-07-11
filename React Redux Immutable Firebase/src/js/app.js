@@ -28,4 +28,4 @@ render((
 // Start listening to the auth changes
 setTimeout(function(){
   store.dispatch(startListeningToAuth());
-});
+},0);

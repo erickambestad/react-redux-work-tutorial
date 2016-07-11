@@ -7,7 +7,8 @@ export default Map({
   auth: Map({
     currently: 'ANONYMOUS',
     username: null,
-    uid: null
+    uid: null,
+    error: null
   }),
   loading: false,
   items: List(),
