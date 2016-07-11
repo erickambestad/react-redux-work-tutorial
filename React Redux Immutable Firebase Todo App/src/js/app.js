@@ -13,7 +13,8 @@ require('../../fb-config.js');
 
 // Page containers.. (smart components)
 import Template from './pages/Template';
-import Home from './pages/Home/container'
+import Home from './pages/Home/container';
+import Register from './pages/Register/container';
 
 // Start the auth listener
 store.dispatch(startListeningToAuth());
@@ -23,6 +24,7 @@ render((
     <Router history={browserHistory}>
   		<Route component={Template}>
   			<Route path="/" component={Home}/>
+  			<Route path="/register" component={Register}/>
   		</Route>
     </Router>
   </Provider>
