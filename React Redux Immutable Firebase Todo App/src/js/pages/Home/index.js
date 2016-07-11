@@ -30,8 +30,7 @@ class Home extends Component {
       let newItem = {
         id: uuid.v4(),
         label: this.refs.item.value,
-        completed: false,
-        deleted: false
+        completed: false
       }
       // Push the new item in to the DB.. will automatically update
       let saved = firebase.database()
@@ -59,9 +58,26 @@ class Home extends Component {
         .child(user.uid)
         .child(key)
         .remove().then(() => {
-          console.log('success')
+          // Show success message
         }).catch((error) => {
-          console.log('Failed.. ' + error.message)
+          // Show error message
+        })
+    }
+  }
+
+  toggleItemCompletion(key, toggle) {
+    // Check for user since we'll need their db key
+    let user = firebase.auth().currentUser;
+
+    // If the user and key exists, move on.
+    if (user && user.uid && key) {
+      firebase.database()
+        .ref()
+        .child('items')
+        .child(user.uid)
+        .child(key)
+        .update({
+          completed: toggle
         })
     }
   }
@@ -89,7 +105,7 @@ class Home extends Component {
                 }}>Logut</a>
             </h3>
           </div>
-          <List items={items} deleteCallback={this.deleteItem} toggleCallback={()=>{}}/>
+          <List items={items} deleteCallback={this.deleteItem} toggleCallback={this.toggleItemCompletion}/>
         </div>
         <form onSubmit={this.addItem.bind(this)} className="form-horizontal">
           <div className="form-group">

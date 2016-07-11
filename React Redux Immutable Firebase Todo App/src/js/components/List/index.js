@@ -28,7 +28,7 @@ const List = ({
         });
         return (
           <li key={index} className={classes}>
-            <a href="#" onClick={toggleCallback.bind(null, itemKey)}>{item.get('label')}</a>
+            <a href="#" onClick={toggleCallback.bind(null, itemKey, !item.get('completed'))}>{item.get('label')}</a>
             <a href="#" className="glyphicon glyphicon-trash pull-right" aria-hidden="true" onClick={deleteCallback.bind(null, itemKey)}></a>
           </li>
         );
