@@ -4,6 +4,9 @@
 */htdocs/*.woff2
 */htdocs/*.svg
 */htdocs/*.jpg
+*/htdocs/*.gif
+*/htdocs/*.png
+*/htdocs/*.jpeg
 */htdocs/*.eot
 */htdocs/*.ttf
 npm-debug.log
