@@ -3,6 +3,7 @@
 import React from "react";
 import _ from 'lodash';
 import classnames from 'classnames';
+import FlipMove from 'react-flip-move';
 
 // Require our specific list styles
 require('./styles.scss');
@@ -37,7 +38,9 @@ const List = ({
 
   return(
     <ul className="list-group">
-      {renderItems}
+      <FlipMove staggerDelayBy={50} enterAnimation="accordianVertical" leaveAnimation="none">
+        {renderItems}
+      </FlipMove>
     </ul>
   );
 }

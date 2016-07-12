@@ -73,6 +73,7 @@ export function startListeningToItems() {
 // auth
 export function startListeningToAuth() {
   return (dispatch, getState) => {
+    dispatch({type: ATTEMPTING_LOGIN});
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // User signed in

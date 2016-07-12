@@ -1,10 +1,10 @@
 "use strict";
 
-import React from "react";
+import React, { Component } from "react";
 
 let loader = require('../../../images/hex-loader2.gif');
 
-class Loader extends React.Component {
+class Loader extends Component {
 
   constructor(props) {
     super(props);
